@@ -53,37 +53,6 @@
     font-size:14px;
     margin:0 0 20px;
   }
-  .keybar{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    align-items:center;
-    margin-bottom:8px;
-  }
-  .keybar input{
-    flex:1;
-    min-width:220px;
-    background:var(--void-deep);
-    border:1px solid var(--line);
-    color:var(--ink);
-    padding:9px 12px;
-    border-radius:2px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-  }
-  .keybar button{
-    background:var(--teal);
-    color:var(--void-deep);
-    border:none;
-    padding:9px 16px;
-    border-radius:2px;
-    font-family:'IBM Plex Mono', monospace;
-    font-size:12px;
-    font-weight:500;
-    letter-spacing:0.03em;
-    cursor:pointer;
-  }
-  .keybar button:hover{ background:var(--amber); }
   .keynote{
     font-size:11px;
     color:rgba(237,232,222,0.35);
@@ -189,16 +158,7 @@
   <p class="eyebrow">Exceptions · Last 30 Days · Chronological</p>
   <h1>Allowed List</h1>
   <p>Every upload from your permitted channels, from the last month, laid out in the order they actually happened.</p>
-
-<<<<<<< HEAD
   <p class="keynote">API key is set directly in the code below.</p>
-=======
-  <div class="keybar">
-    <input id="apiKeyInput" type="password" placeholder="Paste your YouTube Data API key" autocomplete="off">
-    <button id="saveKeyBtn">Save &amp; load</button>
-  </div>
-  <p class="keynote">Stored only in this browser (localStorage). Never sent anywhere but Google's API.</p>
->>>>>>> d70c6ebd9eb33ec07e6ea20be887e0ad6c2e829c
 </header>
 
 <main>
@@ -217,10 +177,9 @@
     { name: "Dolan Darkest",     id: "UCJO31lXn1Uo924ha6nO8XlA" },
     { name: "Basic Footy",       id: "UCUzyj7jgUFlqxGD73NsVbcA" },
   ];
-<<<<<<< HEAD
   const DAYS_WINDOW = 30;       // how far back to include videos
   const SORT_ASCENDING = false; // true = oldest first (timeline order), false = newest first (default)
-  const API_KEY = "AIzaSyCIIsX7eIoYxjNyrSaTs2ai4cr6fHhmNRM"; // <-- put your key here, between the quotes
+  const API_KEY = "PASTE_YOUR_NEW_YOUTUBE_DATA_API_KEY_HERE"; // <-- put your NEW key here (revoke the old one first)
 
   // ---- elements ----
   const statusEl = document.getElementById('status');
@@ -291,26 +250,11 @@
     }
   }
 
-<<<<<<< HEAD
   // load automatically on page open
-  if (API_KEY && API_KEY !== "PASTE_YOUR_YOUTUBE_DATA_API_KEY_HERE") {
+  if (API_KEY && API_KEY !== "PASTE_YOUR_NEW_YOUTUBE_DATA_API_KEY_HERE") {
     loadFeed(API_KEY);
   } else {
     setStatus('No API key set — open the file and paste your key into the API_KEY constant near the bottom of the script.', true);
-=======
-  saveBtn.addEventListener('click', () => {
-    const key = input.value.trim();
-    if (!key) return;
-    localStorage.setItem(KEY_STORAGE, key);
-    loadFeed(key);
-  });
-
-  // auto-load if a key is already saved
-  const savedKey = localStorage.getItem(KEY_STORAGE);
-  if (savedKey){
-    input.value = savedKey;
-    loadFeed(savedKey);
->>>>>>> d70c6ebd9eb33ec07e6ea20be887e0ad6c2e829c
   }
 </script>
 
