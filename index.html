@@ -190,7 +190,15 @@
   <h1>Allowed List</h1>
   <p>Every upload from your permitted channels, from the last month, laid out in the order they actually happened.</p>
 
+<<<<<<< HEAD
   <p class="keynote">API key is set directly in the code below.</p>
+=======
+  <div class="keybar">
+    <input id="apiKeyInput" type="password" placeholder="Paste your YouTube Data API key" autocomplete="off">
+    <button id="saveKeyBtn">Save &amp; load</button>
+  </div>
+  <p class="keynote">Stored only in this browser (localStorage). Never sent anywhere but Google's API.</p>
+>>>>>>> d70c6ebd9eb33ec07e6ea20be887e0ad6c2e829c
 </header>
 
 <main>
@@ -209,6 +217,7 @@
     { name: "Dolan Darkest",     id: "UCJO31lXn1Uo924ha6nO8XlA" },
     { name: "Basic Footy",       id: "UCUzyj7jgUFlqxGD73NsVbcA" },
   ];
+<<<<<<< HEAD
   const DAYS_WINDOW = 30;       // how far back to include videos
   const SORT_ASCENDING = false; // true = oldest first (timeline order), false = newest first (default)
   const API_KEY = "AIzaSyCIIsX7eIoYxjNyrSaTs2ai4cr6fHhmNRM"; // <-- put your key here, between the quotes
@@ -282,11 +291,26 @@
     }
   }
 
+<<<<<<< HEAD
   // load automatically on page open
   if (API_KEY && API_KEY !== "PASTE_YOUR_YOUTUBE_DATA_API_KEY_HERE") {
     loadFeed(API_KEY);
   } else {
     setStatus('No API key set — open the file and paste your key into the API_KEY constant near the bottom of the script.', true);
+=======
+  saveBtn.addEventListener('click', () => {
+    const key = input.value.trim();
+    if (!key) return;
+    localStorage.setItem(KEY_STORAGE, key);
+    loadFeed(key);
+  });
+
+  // auto-load if a key is already saved
+  const savedKey = localStorage.getItem(KEY_STORAGE);
+  if (savedKey){
+    input.value = savedKey;
+    loadFeed(savedKey);
+>>>>>>> d70c6ebd9eb33ec07e6ea20be887e0ad6c2e829c
   }
 </script>
 
