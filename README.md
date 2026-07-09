@@ -1,4 +1,4 @@
-##Welcome to my very silly Side-project
+**Welcome to my very silly Side-project**
 
 The goal here is to make a youtube feed containing my favourite youtubers and NO-ONE ELSE. Hopefully I learn some skills on the way but right now it's mostly vibe-coded. 
 
