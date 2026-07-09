@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allowed List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#EDE8DE;
+    --void:#1B2430;
+    --void-deep:#141B24;
+    --teal:#4C8577;
+    --amber:#D8A34D;
+    --line: rgba(237,232,222,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--void);
+    background-image:
+      radial-gradient(circle at 10% 0%, rgba(76,133,119,0.10), transparent 45%),
+      radial-gradient(circle at 90% 100%, rgba(216,163,77,0.06), transparent 40%);
+    color:var(--ink);
+    font-family:'IBM Plex Mono', monospace;
+    min-height:100vh;
+  }
+  header{
+    padding: 56px 32px 24px;
+    max-width:820px;
+    margin:0 auto;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin:0 0 14px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(32px, 5vw, 48px);
+    margin:0 0 12px;
+    letter-spacing:-0.01em;
+  }
+  header p{
+    max-width:560px;
+    color:rgba(237,232,222,0.6);
+    line-height:1.55;
+    font-size:14px;
+    margin:0 0 20px;
+  }
+  .keybar{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    align-items:center;
+    margin-bottom:8px;
+  }
+  .keybar input{
+    flex:1;
+    min-width:220px;
+    background:var(--void-deep);
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:9px 12px;
+    border-radius:2px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+  }
+  .keybar button{
+    background:var(--teal);
+    color:var(--void-deep);
+    border:none;
+    padding:9px 16px;
+    border-radius:2px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.03em;
+    cursor:pointer;
+  }
+  .keybar button:hover{ background:var(--amber); }
+  .keynote{
+    font-size:11px;
+    color:rgba(237,232,222,0.35);
+    margin:0;
+  }
+  main{
+    max-width:820px;
+    margin:0 auto;
+    padding: 36px 32px 90px;
+    display:flex;
+    flex-direction:column;
+    gap:26px;
+  }
+  #status{
+    font-size:13px;
+    color:rgba(237,232,222,0.5);
+    padding: 4px 0;
+  }
+  #status.err{ color:#E19A6B; }
+  .permit{
+    background: var(--void-deep);
+    border:1px solid var(--line);
+    border-radius:2px;
+    overflow:hidden;
+    position:relative;
+  }
+  .permit::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:3px;
+    background:linear-gradient(90deg, var(--teal), var(--amber));
+    opacity:0.8;
+  }
+  .permit-head{
+    padding:14px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    border-bottom:1px dashed var(--line);
+    flex-wrap:wrap;
+  }
+  .permit-head .channel{
+    font-family:'Fraunces', serif;
+    font-size:16px;
+    font-weight:600;
+  }
+  .permit-head .date{
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--amber);
+    border:1px solid rgba(216,163,77,0.4);
+    padding:3px 8px;
+    border-radius:2px;
+    white-space:nowrap;
+  }
+  .permit-title{
+    padding:12px 18px 0;
+    font-size:13px;
+    color:rgba(237,232,222,0.75);
+    line-height:1.4;
+  }
+  .frame-wrap{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/9;
+    background:#000;
+    margin-top:12px;
+  }
+  .frame-wrap iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+  }
+  .permit-foot{
+    padding:10px 18px 16px;
+    font-size:11px;
+    color:rgba(237,232,222,0.4);
+  }
+  footer{
+    max-width:820px;
+    margin:0 auto;
+    padding: 0 32px 60px;
+    font-size:12px;
+    color:rgba(237,232,222,0.35);
+    line-height:1.6;
+  }
+  footer code{
+    background:rgba(237,232,222,0.06);
+    padding:1px 5px;
+    border-radius:2px;
+  }
+  :focus-visible{ outline:2px solid var(--amber); outline-offset:2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Exceptions · Last 30 Days · Chronological</p>
+  <h1>Allowed List</h1>
+  <p>Every upload from your permitted channels, from the last month, laid out in the order they actually happened.</p>
+
+  <p class="keynote">API key is set directly in the code below.</p>
+</header>
+
+<main>
+  <p id="status">Waiting for API key…</p>
+  <div id="feed"></div>
+</main>
+
+<footer>
+  Edit the <code>CHANNELS</code> array and <code>DAYS_WINDOW</code> constant at the bottom of this file to change who's on the list or the lookback window.
+</footer>
+
+<script>
+  // ---- config ----
+  const CHANNELS = [
+    { name: "Signified B Sides", id: "UCInOR_Jhe-MH-IDSJ2BSOVA" },
+    { name: "Dolan Darkest",     id: "UCJO31lXn1Uo924ha6nO8XlA" },
+    { name: "Basic Footy",       id: "UCUzyj7jgUFlqxGD73NsVbcA" },
+  ];
+  const DAYS_WINDOW = 30;       // how far back to include videos
+  const SORT_ASCENDING = false; // true = oldest first (timeline order), false = newest first (default)
+  const API_KEY = "AIzaSyCIIsX7eIoYxjNyrSaTs2ai4cr6fHhmNRM"; // <-- put your key here, between the quotes
+
+  // ---- elements ----
+  const statusEl = document.getElementById('status');
+  const feedEl = document.getElementById('feed');
+
+  function setStatus(msg, isError=false){
+    statusEl.textContent = msg;
+    statusEl.classList.toggle('err', isError);
+  }
+
+  async function fetchChannelUploads(channel, apiKey){
+    const uploadsPlaylistId = "UU" + channel.id.slice(2);
+    const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=50&key=${apiKey}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.error) throw new Error(`${channel.name}: ${data.error.message}`);
+    return (data.items || []).map(item => ({
+      channel: channel.name,
+      title: item.snippet.title,
+      videoId: item.snippet.resourceId.videoId,
+      publishedAt: new Date(item.snippet.publishedAt),
+    }));
+  }
+
+  function renderFeed(videos){
+    feedEl.innerHTML = '';
+    if (videos.length === 0){
+      feedEl.innerHTML = `<p style="color:rgba(237,232,222,0.4);font-size:13px;">Nothing posted by anyone on the list in the last ${DAYS_WINDOW} days.</p>`;
+      return;
+    }
+    videos.forEach(v => {
+      const card = document.createElement('div');
+      card.className = 'permit';
+      const dateLabel = v.publishedAt.toLocaleDateString(undefined, { month:'short', day:'numeric', year:'numeric' });
+      card.innerHTML = `
+        <div class="permit-head">
+          <span class="channel">${v.channel}</span>
+          <span class="date">${dateLabel}</span>
+        </div>
+        <div class="permit-title">${v.title}</div>
+        <div class="frame-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/${v.videoId}"
+            title="${v.title}"
+            loading="lazy"
+            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="permit-foot">Posted ${dateLabel}</div>
+      `;
+      feedEl.appendChild(card);
+    });
+  }
+
+  async function loadFeed(apiKey){
+    setStatus('Loading uploads…');
+    feedEl.innerHTML = '';
+    const cutoff = new Date(Date.now() - DAYS_WINDOW * 24 * 60 * 60 * 1000);
+    try {
+      const results = await Promise.all(CHANNELS.map(ch => fetchChannelUploads(ch, apiKey)));
+      let all = results.flat().filter(v => v.publishedAt >= cutoff);
+      all.sort((a, b) => SORT_ASCENDING ? a.publishedAt - b.publishedAt : b.publishedAt - a.publishedAt);
+      renderFeed(all);
+      setStatus(`${all.length} video${all.length === 1 ? '' : 's'} from the last ${DAYS_WINDOW} days.`);
+    } catch (err) {
+      setStatus(`Couldn't load the feed — ${err.message}`, true);
+    }
+  }
+
+  // load automatically on page open
+  if (API_KEY && API_KEY !== "PASTE_YOUR_YOUTUBE_DATA_API_KEY_HERE") {
+    loadFeed(API_KEY);
+  } else {
+    setStatus('No API key set — open the file and paste your key into the API_KEY constant near the bottom of the script.', true);
+  }
+</script>
+
+</body>
+</html>
